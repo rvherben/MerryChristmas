@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager> {
     Transform _startingSleighView;
     StartingSleigh _currentSleigh;
     GameObject _playerView;
+    const float _SLEIGH_DELAY = 2f;
 
 
     override public void Init()
@@ -19,6 +20,11 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void StartGame()
+    {
+        Invoke("_SpawnSleigh", _SLEIGH_DELAY);
+    }
+
+    void _SpawnSleigh()
     {
         GameObject startingSleigh = (GameObject)Instantiate(Resources.Load("Sleigh"));
         startingSleigh.transform.SetParent(_startingSleighView, false);
