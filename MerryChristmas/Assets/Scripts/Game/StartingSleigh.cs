@@ -6,7 +6,7 @@ public class StartingSleigh : MonoBehaviour {
 
     bool _started = false;
     bool _spawned = false;
-    const float _SLEIGH_SPEED = 5f;
+    const float _SLEIGH_SPEED = 3f;
     const float _SINE_FREQUENCY = 0.05f;
     const float _SINE_AMPLITUDE = 0.5f;
     float _frequency = 1;
@@ -26,6 +26,7 @@ public class StartingSleigh : MonoBehaviour {
                 InMiddle();
             }
             _spawned = true;
+            transform.Find("Santa").gameObject.SetActive(false);
         }
         if (transform.localPosition.x < -375)
         {

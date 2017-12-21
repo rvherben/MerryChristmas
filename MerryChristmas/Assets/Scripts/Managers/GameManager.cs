@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager> {
     Transform _startingSleighView;
     StartingSleigh _currentSleigh;
     GameObject _playerView;
+    PlayerController _playerController;
     const float _SLEIGH_DELAY = 2f;
 
 
@@ -17,11 +18,14 @@ public class GameManager : Singleton<GameManager> {
         _levelController.Init();
         _startingSleighView = _levelController.transform.parent.transform.Find("StartingSleighView").transform;
         _playerView = _levelController.transform.parent.transform.Find("PlayerView").gameObject;
+        _playerController = _playerView.transform.Find("Player").GetComponent<PlayerController>();
     }
 
     public void StartGame()
     {
         Invoke("_SpawnSleigh", _SLEIGH_DELAY);
+        _levelController.BottomAlmostReached += _OnBottomAlmostReached;
+        _levelController.BottomReached += _OnBottomReached;
     }
 
     void _SpawnSleigh()
@@ -37,5 +41,19 @@ public class GameManager : Singleton<GameManager> {
         _currentSleigh.InMiddle -= _SpawnPlayer;
         _playerView.SetActive(true);
         _levelController.Prepare();
+    }
+
+    void _OnBottomAlmostReached()
+    {
+        _levelController.BottomAlmostReached -= _OnBottomAlmostReached;
+
+        _playerController.HandleBottomAlmostReached();
+    }
+
+    void _OnBottomReached()
+    {
+        _levelController.BottomReached -= _OnBottomReached;
+
+        _playerController.HandleBottomReached();
     }
 }
