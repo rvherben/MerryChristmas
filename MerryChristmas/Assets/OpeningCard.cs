@@ -13,9 +13,7 @@ public class OpeningCard : MonoBehaviour
 
     public void StartButtonPressed()
     {
-
         StartCoroutine(RotateY());
-        SceneManager.LoadScene("Main");
     }
 
     private IEnumerator RotateY()
