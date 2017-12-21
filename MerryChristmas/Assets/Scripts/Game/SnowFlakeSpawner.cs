@@ -40,7 +40,8 @@ public class SnowFlakeSpawner : MonoBehaviour
                 flake.transform.SetParent(_flakeSpawnArea);
                 float randomPos = Random.Range(-330, 330);
                 float randomSize = Random.Range(0.05f, 0.2f);
-                flake.GetComponent<SnowFlake>().SetSnowFlakeProperties(randomSize, new Vector3(randomPos, transform.localPosition.y, transform.localPosition.z));
+                float alpha = Mathf.RoundToInt(((randomSize-0.05f)/ 0.00079365079f) +66);
+                flake.GetComponent<SnowFlake>().SetSnowFlakeProperties(randomSize, new Vector3(randomPos, transform.localPosition.y, transform.localPosition.z), alpha);
                 _cooldown = _SNOW_DENSITY;
             }
             else

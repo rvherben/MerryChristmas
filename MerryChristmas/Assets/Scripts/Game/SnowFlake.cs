@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SnowFlake : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class SnowFlake : MonoBehaviour {
         _initialized = true;
     }
 
-    public void SetSnowFlakeProperties(float size, Vector3 position)
+    public void SetSnowFlakeProperties(float size, Vector3 position, float alpha)
     {
         if (!_initialized)
         {
@@ -26,6 +27,10 @@ public class SnowFlake : MonoBehaviour {
         transform.localScale = new Vector3(size, size, size);
         transform.localPosition = position;
         _startPosition = transform.localPosition;
+        Color32 c = transform.GetComponent<Image>().color;
+
+        c.a = (byte)alpha;
+        transform.GetComponent<Image>().color = c;
     }
 
     void Update () {
