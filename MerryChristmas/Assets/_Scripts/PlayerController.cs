@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    private bool _goingLeft, _goingRight, _goingUp, _goingDown;
+    private bool _goingLeft, _goingRight, _goingUp, _goingDown, _isFalling, _grounded;
     public float speed = 1;
-	
+    public Sprite santaDead;
+    public GameObject Parachute;
+
+
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.A))
@@ -41,12 +44,25 @@ public class PlayerController : MonoBehaviour {
         {
             _goingDown = false;
         }
+        if (!_isFalling) {
+            Move(_goingLeft, _goingRight, _goingUp, _goingDown);
+        } else
+        {
+            Fall();
+        }
 
-        Fall(_goingLeft, _goingRight, _goingUp, _goingDown);
-
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, -9.0f, 9.0f), Mathf.Clamp(transform.position.y, 3.0f, 11.5f));
     }
 
-    void Fall(bool left, bool right, bool up, bool down)
+    void Fall()
+    {
+        if (!_grounded)
+        {
+            transform.Translate(0, -speed * Time.deltaTime, 0);
+        }
+        }
+
+    void Move(bool left, bool right, bool up, bool down)
     {
         if (left)
         {
@@ -64,6 +80,40 @@ public class PlayerController : MonoBehaviour {
         {
             transform.Translate(0, -speed * Time.deltaTime, 0);
         }
+    }
+
+    void ChangeSprite(Sprite newSprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = newSprite;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            _grounded = true;
+            if (_isFalling)
+            {
+                ChangeSprite(santaDead);
+                //Invoke()
+            }
+            else {
+                //win the game
+            }
+
+        }
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            _isFalling = true;
+            Destroy(Parachute);
+            
+        }
+        
+    } 
+
+    void Reset()
+    {
+
     }
 
     
