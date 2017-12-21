@@ -15,6 +15,7 @@ public class LevelController : MonoBehaviour {
     float position;
     SnowFlakeSpawner _spawner;
     bool _playing;
+    GameObject _restartButton;
 
     public delegate void LevelControllerEvent();
     public LevelControllerEvent BottomAlmostReached;
@@ -24,6 +25,7 @@ public class LevelController : MonoBehaviour {
         _scrolling = false;
         rect = transform.GetComponent<RectTransform>();
         _spawner = transform.Find("Background/FlakeHolder/Spawner").GetComponent<SnowFlakeSpawner>();
+        _restartButton = transform.Find("Background/GameEndUI/Restart").gameObject;
     }
 
     public void Prepare()
@@ -38,7 +40,34 @@ public class LevelController : MonoBehaviour {
         _playing = true;
     }
 
-	void Update () {
+    public void HandleOnSantaHit()
+    {
+        _speed = 6;
+    }
+
+    public void Reset()
+    {
+        _scrolling = false;
+        rect.offsetMin = new Vector2(rect.offsetMin.x, -_START_POSITION);
+        rect.offsetMax = new Vector2(rect.offsetMax.x, -_START_POSITION);
+        _speed = 0;
+        _spawner.StopSnowfall();
+    }
+
+    void _ShowRestartButton()
+    {
+        _restartButton.SetActive(true);
+    }
+
+    public void HandleRestartButton()
+    {
+        _restartButton.SetActive(false);
+        GameManager.Instance.Reset();
+    }
+
+
+    void Update ()
+    {
         if (_scrolling)
         {       
             if(position <= _END_POSITION + _BOTTOM_REACHED_THRESHOLD && _playing)
@@ -58,7 +87,7 @@ public class LevelController : MonoBehaviour {
                 }
                 else
                 {
-                    position -= _SCROLLING_SPEED;
+                    position -= _speed;
                 }
                 rect.offsetMin = new Vector2(rect.offsetMin.x, -position);
                 rect.offsetMax = new Vector2(rect.offsetMax.x, -position);
@@ -71,6 +100,7 @@ public class LevelController : MonoBehaviour {
                 }
                 _spawner.StartSnowfall();
                 _scrolling = false;
+                Invoke("_ShowRestartButton", 2f);
             }
         }
     }

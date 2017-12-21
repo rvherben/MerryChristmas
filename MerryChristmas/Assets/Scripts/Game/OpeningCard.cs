@@ -11,6 +11,18 @@ public class OpeningCard : MonoBehaviour
     [SerializeField] private GameObject Button;
     [SerializeField] private GameObject Card;
 
+    Quaternion _startRot;
+
+    public void Init()
+    {
+        _startRot = Card.transform.rotation;
+    }
+
+    public void Reset()
+    {
+        Card.transform.rotation = _startRot;
+    }
+
     public void StartButtonPressed()
     {
         StartCoroutine(RotateY());

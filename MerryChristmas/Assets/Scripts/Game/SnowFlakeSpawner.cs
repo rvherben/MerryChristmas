@@ -25,6 +25,11 @@ public class SnowFlakeSpawner : MonoBehaviour
         _snowing = true;
     }
 
+    public void StopSnowfall()
+    {
+        _snowing = false;
+    }
+
     void Update()
     {
         if (_snowing)

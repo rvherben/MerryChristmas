@@ -1,15 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
     private bool _goingLeft, _goingRight, _goingUp, _goingDown, _isFalling, _grounded;
     public float speed = 6;
     public Sprite santaDead;
-    public GameObject Parachute;
+    public Sprite santaAlive;
+    public GameObject _parachute;
     bool _playing = true;
     bool _bottomReached = false;
+    Vector3 _startPos;
+
+    public void Init()
+    {
+        _startPos = transform.localPosition;
+    }
 
     public void HandleBottomAlmostReached()
     {
@@ -21,7 +29,6 @@ public class PlayerController : MonoBehaviour {
         _bottomReached = true;
     }
 
-    // Update is called once per frame
     void Update () {
         if (_playing && !_bottomReached)
         {
@@ -57,30 +64,30 @@ public class PlayerController : MonoBehaviour {
             {
                 _goingDown = false;
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _isFalling = true;
+                _playing = false;
+                _parachute.SetActive(false);
+                GameManager.Instance.SantaHit();
+                transform.GetComponent<BoxCollider2D>().enabled = false;
+            }
             if (!_isFalling)
             {
                 Move(_goingLeft, _goingRight, _goingUp, _goingDown);
             }
-            else
-            {
-                Fall();
-            }
 
             transform.position = new Vector2(Mathf.Clamp(transform.position.x, -9.0f, 9.0f), Mathf.Clamp(transform.position.y, 6, 11.5f));
         }
-        else if (_bottomReached && !_grounded)
+        else if (_bottomReached && !_grounded && !_isFalling)
         {
             transform.localPosition -= new Vector3(0, 2, 0);
         }
-        
-    }
-
-    void Fall()
-    {
-        if (!_grounded)
+        else if (_bottomReached && !_grounded && _isFalling)
         {
-            transform.Translate(0, -speed * Time.deltaTime, 0);
+            transform.localPosition -= new Vector3(0, 6, 0);
         }
+
     }
 
     void Move(bool left, bool right, bool up, bool down)
@@ -105,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 
     void ChangeSprite(Sprite newSprite)
     {
-        GetComponent<SpriteRenderer>().sprite = newSprite;
+        transform.Find("Santa").GetComponent<Image>().sprite = newSprite;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -119,23 +126,29 @@ public class PlayerController : MonoBehaviour {
                 //Invoke()
             }
             else {
-                Destroy(Parachute);
+                _parachute.SetActive(false);
             }
 
         }
         if(other.gameObject.CompareTag("Enemy"))
         {
             _isFalling = true;
-            Destroy(Parachute);
-            
+            _parachute.SetActive(false);
         }
         
     } 
 
-    void Reset()
+    public void Reset()
     {
         _playing = true;
         _bottomReached = false;
+        _isFalling = false;
+        _grounded = false;
+        _parachute.SetActive(true);
+        ChangeSprite(santaAlive);
+        transform.GetComponent<BoxCollider2D>().enabled = true;
+        transform.localPosition = _startPos;
+        transform.parent.gameObject.SetActive(false);
     }
 
     

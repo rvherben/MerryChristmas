@@ -3,17 +3,10 @@
 public class SantaMovement : MonoBehaviour {
     [SerializeField] private float amplitude;
     [SerializeField] private float frequency;
-    [SerializeField] private GameObject player;
     [SerializeField] private Vector2 startposition;
     [SerializeField] public float speed;
     [SerializeField] private bool moveLeft;
 
-    // Use this for initialization
-    void Start () {
-     
-        
-     
-    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,7 +30,7 @@ public class SantaMovement : MonoBehaviour {
     {
         if(collision.tag == "Player")
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
         }
     }
 

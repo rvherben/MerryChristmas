@@ -84,14 +84,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1770086796457734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1dcd1833f930bc459940e714badcd11, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c1eb1b810630e1429c302bbbea058ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 4
-  frequency: 1
-  player: {fileID: 0}
+  amplitude: 0
+  frequency: 0
   startposition: {x: 0, y: 0}
-  speed: 2
+  speed: 0
   moveLeft: 0
 --- !u!114 &114484157197381516
 MonoBehaviour:

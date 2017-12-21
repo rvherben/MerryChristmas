@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager> {
     StartingSleigh _currentSleigh;
     GameObject _playerView;
     PlayerController _playerController;
+    OpeningCard _menuView;
     const float _SLEIGH_DELAY = 2f;
 
 
@@ -19,6 +20,7 @@ public class GameManager : Singleton<GameManager> {
         _startingSleighView = _levelController.transform.parent.transform.Find("StartingSleighView").transform;
         _playerView = _levelController.transform.parent.transform.Find("PlayerView").gameObject;
         _playerController = _playerView.transform.Find("Player").GetComponent<PlayerController>();
+        _menuView = _levelController.transform.parent.transform.Find("MenuView/ChristmasCard/Card/StartButton").GetComponent<OpeningCard>();
     }
 
     public void StartGame()
@@ -41,6 +43,18 @@ public class GameManager : Singleton<GameManager> {
         _currentSleigh.InMiddle -= _SpawnPlayer;
         _playerView.SetActive(true);
         _levelController.Prepare();
+    }
+
+    public void SantaHit()
+    {
+        _levelController.HandleOnSantaHit();
+    }
+
+    public void Reset()
+    {
+        _playerController.Reset();
+        _levelController.Reset();
+        _menuView.Reset();
     }
 
     void _OnBottomAlmostReached()
