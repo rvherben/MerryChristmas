@@ -27,7 +27,7 @@ public class OpeningCard : MonoBehaviour
         for (var t = 0.0f; t <= 1.0f; t += Time.deltaTime)
         {
             Card.transform.rotation = Quaternion.Slerp(oldRotation, newRotation, t);
-            Button.transform.rotation = Quaternion.Slerp(oldRotation, newRotation, t);
+            //Button.transform.rotation = Quaternion.Slerp(oldRotation, newRotation, t);
             yield return null;
         }
         Card.transform.rotation = newRotation;
