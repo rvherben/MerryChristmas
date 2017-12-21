@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    private bool _goingLeft, _goingRight, _brake, _accelerate;
+    private bool _goingLeft, _goingRight, _goingUp, _goingDown;
+    public float speed = 1;
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,22 +27,22 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            _brake = true;
+            _goingUp = true;
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
-            _brake = false;
+            _goingUp = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            _accelerate = true;
+            _goingDown = true;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
-            _accelerate = false;
+            _goingDown = false;
         }
 
-        Fall(_goingLeft, _goingRight, _brake, _accelerate);
+        Fall(_goingLeft, _goingRight, _goingUp, _goingDown);
 
     }
 
@@ -49,21 +50,19 @@ public class PlayerController : MonoBehaviour {
     {
         if (left)
         {
-            transform.position = new Vector2(transform.position.x - 0.01f, transform.position.y - 0.01f);
-        } else if (right)
-        {
-            transform.position = new Vector2(transform.position.x + 0.01f, transform.position.y - 0.01f);
-        }else if (left && right || !left && !right)
-        {
-            transform.position = new Vector2(transform.position.x, transform.position.y - 0.01f);
+            transform.Translate(-speed * Time.deltaTime,0,0);
         }
-
+        if (right)
+        {
+            transform.Translate(speed * Time.deltaTime, 0, 0);
+        }
         if (up)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y + 0.005f);
+            transform.Translate(0, speed * Time.deltaTime, 0);
         }
-        if(down){
-            transform.position = new Vector2(transform.position.x, transform.position.y - 0.005f);
+        if (down)
+        {
+            transform.Translate(0, -speed * Time.deltaTime, 0);
         }
     }
 
