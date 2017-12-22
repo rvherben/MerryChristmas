@@ -9,21 +9,21 @@ public class GameManager : Singleton<GameManager> {
     StartingSleigh _currentSleigh;
     GameObject _playerView;
     PlayerController _playerController;
-    OpeningCard _menuView;
     EnemySpawner _enemySpawner;
+    UIController _menuView;
     const float _SLEIGH_DELAY = 2f;
 
 
-    override public void Init()
+    public override void Init()
     {
         _levelController = GameObject.Find("Canvas").transform.Find("MainView").GetComponent<LevelController>();
         _levelController.Init();
         _startingSleighView = _levelController.transform.parent.transform.Find("StartingSleighView").transform;
         _playerView = _levelController.transform.parent.transform.Find("PlayerView").gameObject;
         _playerController = _playerView.transform.Find("Player").GetComponent<PlayerController>();
-        _menuView = _levelController.transform.parent.transform.Find("MenuView/ChristmasCard/Card/StartButton").GetComponent<OpeningCard>();
         _enemySpawner = _levelController.transform.parent.transform.Find("EnemyView").GetComponent<EnemySpawner>();
         _enemySpawner.Init();
+        _menuView = _levelController.transform.parent.transform.Find("MenuView/ChristmasCard/Card/StartButton").GetComponent<UIController>();
     }
 
     public void StartGame()
@@ -73,7 +73,7 @@ public class GameManager : Singleton<GameManager> {
     void _OnBottomReached()
     {
         _levelController.BottomReached -= _OnBottomReached;
-
         _playerController.HandleBottomReached();
+        
     }
 }

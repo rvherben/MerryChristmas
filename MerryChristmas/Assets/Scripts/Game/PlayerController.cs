@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
     bool _bottomReached = false;
     Vector3 _startPos;
     Vector3 _startRot;
+    public GameObject gameOverText;
+    public GameObject wintText;
 
     public void Init()
     {
@@ -130,10 +132,11 @@ public class PlayerController : MonoBehaviour {
             {
                 transform.localEulerAngles = _startRot;
                 ChangeSprite(santaDead);
-
+                gameOverText.SetActive(true);
             }
             else {
                 _parachute.SetActive(false);
+                wintText.SetActive(true);
             }
 
         }
@@ -150,6 +153,8 @@ public class PlayerController : MonoBehaviour {
 
     public void Reset()
     {
+        wintText.SetActive(false);
+        gameOverText.SetActive(false);
         _playing = true;
         _bottomReached = false;
         _isFalling = false;
