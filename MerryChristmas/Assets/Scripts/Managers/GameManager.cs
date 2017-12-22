@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager> {
     GameObject _playerView;
     PlayerController _playerController;
     OpeningCard _menuView;
+    EnemySpawner _enemySpawner;
     const float _SLEIGH_DELAY = 2f;
 
 
@@ -21,6 +22,8 @@ public class GameManager : Singleton<GameManager> {
         _playerView = _levelController.transform.parent.transform.Find("PlayerView").gameObject;
         _playerController = _playerView.transform.Find("Player").GetComponent<PlayerController>();
         _menuView = _levelController.transform.parent.transform.Find("MenuView/ChristmasCard/Card/StartButton").GetComponent<OpeningCard>();
+        _enemySpawner = _levelController.transform.parent.transform.Find("EnemyView").GetComponent<EnemySpawner>();
+        _enemySpawner.Init();
     }
 
     public void StartGame()
@@ -28,6 +31,7 @@ public class GameManager : Singleton<GameManager> {
         Invoke("_SpawnSleigh", _SLEIGH_DELAY);
         _levelController.BottomAlmostReached += _OnBottomAlmostReached;
         _levelController.BottomReached += _OnBottomReached;
+        _enemySpawner.StartEnemySpawnRotation();
     }
 
     void _SpawnSleigh()
@@ -48,6 +52,7 @@ public class GameManager : Singleton<GameManager> {
     public void SantaHit()
     {
         _levelController.HandleOnSantaHit();
+        _enemySpawner.StopEnemySpawnRotation();
     }
 
     public void Reset()
@@ -62,6 +67,7 @@ public class GameManager : Singleton<GameManager> {
         _levelController.BottomAlmostReached -= _OnBottomAlmostReached;
 
         _playerController.HandleBottomAlmostReached();
+        _enemySpawner.StopEnemySpawnRotation();
     }
 
     void _OnBottomReached()

@@ -9,35 +9,35 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1770086796457734}
+  m_RootGameObject: {fileID: 1297556287916598}
   m_IsPrefabParent: 1
---- !u!1 &1770086796457734
+--- !u!1 &1297556287916598
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 224616601926014892}
-  - component: {fileID: 61297567635408756}
-  - component: {fileID: 50063769949089598}
-  - component: {fileID: 114418330005261392}
-  - component: {fileID: 222425376795460728}
-  - component: {fileID: 114484157197381516}
+  - component: {fileID: 224299844758949680}
+  - component: {fileID: 61174015918613620}
+  - component: {fileID: 50560884430801250}
+  - component: {fileID: 114490598819827242}
+  - component: {fileID: 222074967125099380}
+  - component: {fileID: 114059674662569964}
   m_Layer: 9
-  m_Name: kankeritus
-  m_TagString: Untagged
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &50063769949089598
+--- !u!50 &50560884430801250
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770086796457734}
+  m_GameObject: {fileID: 1297556287916598}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -50,17 +50,17 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &61297567635408756
+  m_Constraints: 4
+--- !u!61 &61174015918613620
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770086796457734}
+  m_GameObject: {fileID: 1297556287916598}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -76,28 +76,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.31, y: 4.28}
   m_EdgeRadius: 0
---- !u!114 &114418330005261392
+--- !u!114 &114059674662569964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770086796457734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1eb1b810630e1429c302bbbea058ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amplitude: 0
-  frequency: 0
-  startposition: {x: 0, y: 0}
-  speed: 0
-  moveLeft: 0
---- !u!114 &114484157197381516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770086796457734}
+  m_GameObject: {fileID: 1297556287916598}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -119,19 +103,30 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!222 &222425376795460728
+--- !u!114 &114490598819827242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297556287916598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1eb1b810630e1429c302bbbea058ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!222 &222074967125099380
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770086796457734}
---- !u!224 &224616601926014892
+  m_GameObject: {fileID: 1297556287916598}
+--- !u!224 &224299844758949680
 RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770086796457734}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1297556287916598}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -140,6 +135,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.8, y: 7.09358}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}

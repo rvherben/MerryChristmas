@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour {
     bool _playing = true;
     bool _bottomReached = false;
     Vector3 _startPos;
+    Vector3 _startRot;
 
     public void Init()
     {
         _startPos = transform.localPosition;
+        _startRot = transform.localEulerAngles;
     }
 
     public void HandleBottomAlmostReached()
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour {
             {
                 _goingDown = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) && !_isFalling)
             {
                 _isFalling = true;
                 _playing = false;
@@ -85,7 +87,11 @@ public class PlayerController : MonoBehaviour {
         }
         else if (_bottomReached && !_grounded && _isFalling)
         {
-            transform.localPosition -= new Vector3(0, 6, 0);
+            transform.localPosition -= new Vector3(0, 6, 0);           
+        }
+        else if(!_bottomReached && !_grounded && _isFalling)
+        {
+            transform.localEulerAngles += new Vector3(0, 0, Random.Range(3, 9));
         }
 
     }
@@ -122,8 +128,9 @@ public class PlayerController : MonoBehaviour {
             _grounded = true;
             if (_isFalling)
             {
+                transform.localEulerAngles = _startRot;
                 ChangeSprite(santaDead);
-                //Invoke()
+
             }
             else {
                 _parachute.SetActive(false);
@@ -133,7 +140,10 @@ public class PlayerController : MonoBehaviour {
         if(other.gameObject.CompareTag("Enemy"))
         {
             _isFalling = true;
+            _playing = false;
             _parachute.SetActive(false);
+            GameManager.Instance.SantaHit();
+            transform.GetComponent<BoxCollider2D>().enabled = false;
         }
         
     } 
