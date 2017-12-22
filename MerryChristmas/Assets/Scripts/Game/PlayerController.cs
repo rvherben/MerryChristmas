@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
     bool _playing = true;
     bool _bottomReached = false;
     Vector3 _startPos;
+    public GameObject gameOverText;
+    public GameObject wintText;
 
     public void Init()
     {
@@ -123,10 +125,12 @@ public class PlayerController : MonoBehaviour {
             if (_isFalling)
             {
                 ChangeSprite(santaDead);
+                gameOverText.SetActive(true);
                 //Invoke()
             }
             else {
                 _parachute.SetActive(false);
+                wintText.SetActive(true);
             }
 
         }
@@ -140,6 +144,8 @@ public class PlayerController : MonoBehaviour {
 
     public void Reset()
     {
+        wintText.SetActive(false);
+        gameOverText.SetActive(false);
         _playing = true;
         _bottomReached = false;
         _isFalling = false;
