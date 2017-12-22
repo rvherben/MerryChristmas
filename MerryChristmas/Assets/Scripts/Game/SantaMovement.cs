@@ -9,7 +9,11 @@ public class SantaMovement : MonoBehaviour {
     bool _initialized;
     bool _started;
 
+    public GameObject birdy;
+    public GameObject plane;
+
     const float _SINE_FREQUENCY = 0.1f;
+    float _sineExtra;
 
     void _Init()
     {
@@ -18,7 +22,7 @@ public class SantaMovement : MonoBehaviour {
         _speed = 5;
     }
 
-    public void SetProperties(bool left, float posY)
+    public void SetProperties(bool left, float posY, bool bird)
     {
         if (!_initialized)
         {
@@ -37,6 +41,21 @@ public class SantaMovement : MonoBehaviour {
             transform.localScale = Vector3.one;
         }
         transform.localPosition = new Vector3 (x, posY, 0);
+
+        if (bird)
+        {
+            _speed = 3;
+            _sineExtra = 0.05f;
+            plane.gameObject.SetActive(false);
+        }
+        else
+        {
+            _speed = 5;
+            _sineExtra = 0f;
+            birdy.gameObject.SetActive(false);
+        }
+        birdy.transform.localScale = new Vector3(50, 50, 50);
+        plane.transform.localScale = new Vector3(50, 50, 50);
         _started = true;
     }
 	
@@ -44,7 +63,7 @@ public class SantaMovement : MonoBehaviour {
 	void Update () {
         if (_started)
         {
-            _frequency += _SINE_FREQUENCY;
+            _frequency += _SINE_FREQUENCY + _sineExtra;
             if (_moveLeft)
             {
                 transform.localPosition -= new Vector3(_speed, _amplitude * (Mathf.Sin(_frequency)), 0);

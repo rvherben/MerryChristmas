@@ -68,14 +68,6 @@ public class PlayerController : MonoBehaviour {
             {
                 _goingDown = false;
             }
-            if (Input.GetKey(KeyCode.Space) && !_isFalling)
-            {
-                _isFalling = true;
-                _playing = false;
-                _parachute.SetActive(false);
-                GameManager.Instance.SantaHit();
-                transform.GetComponent<BoxCollider2D>().enabled = false;
-            }
             if (!_isFalling)
             {
                 Move(_goingLeft, _goingRight, _goingUp, _goingDown);
